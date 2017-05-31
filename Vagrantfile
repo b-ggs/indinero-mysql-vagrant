@@ -1,15 +1,15 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/centos-6.5"
+Vagrant.configure('2') do |config|
+  config.vm.box = 'ubuntu/xenial64'
   config.vm.box_check_update = false
-  # connect on port 13306
-  config.vm.network :forwarded_port, guest: 3306, host: 3306
-  config.vm.provision :shell, :path => "install.sh"
-  config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777", "fmode=666"]
-  config.vm.network "private_network", ip: "10.19.17.12" 
+  config.vm.hostname = 'mysql-box'
+  config.vm.network :forwarded_port, guest: 3306, host: 33060
+  config.vm.provision :shell, path: 'install.sh'
+  config.vm.synced_folder '.', '/vagrant', mount_options: ['dmode=777', 'fmode=666']
+  config.vm.provider 'virtualbox' do |v|
+    v.memory = 4096
+    v.cpus = 2
+  end
 end
