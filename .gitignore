@@ -1,3 +1,6 @@
 .vagrant/
 *.box
 *.log
+*.tar
+.DS_Store
+*.deb
