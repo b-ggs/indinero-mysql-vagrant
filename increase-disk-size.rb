@@ -56,8 +56,8 @@ puts "Attaching #{VDI_FILENAME} to #{vbox_vm_name}..."
 
 ### Remove old .vmdk
 
-puts "Removing #{vmdk_path}..."
+puts "Removing #{VMDK_FILENAME}..."
 
-`rm #{vmdk_path}`
+`rm "#{vmdk_path}"`
 
 puts 'Done! You can now run `vagrant up`.'
