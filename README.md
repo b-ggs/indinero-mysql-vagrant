@@ -1,10 +1,12 @@
-# mysql-vagrant
+# indinero-mysql-vagrant
 
-A simple vagrant box with MySQL.
+A simple Vagrant box with MySQL.
+
+A fork of [b-ggs/mysql-vagrant](https://github.com/b-ggs/mysql-vagrant) used for development on inDinero.
 
 ## Requirements
 
-* MySQL 5.6 for Ubuntu Linux (`mysql-server_5.6.36-1ubuntu14.04_amd64.deb-bundle.tar`) to be downloaded from https://dev.mysql.com/downloads/mysql/5.6.html
+* MySQL 5.6 for Ubuntu (`mysql-server_5.6.36-1ubuntu14.04_amd64.deb-bundle.tar`) to be downloaded from https://dev.mysql.com/downloads/mysql/5.6.html
 
 ## Getting started
 
@@ -28,5 +30,35 @@ Password: `password`
 
 Port: `33060`
 
----
-_Note: Only be used for development purposes._
+```sh
+mysql -h 127.0.0.1 -P 33060 -u root -p
+```
+
+## Populating database with `presko`
+
+```sh
+presko -database indinero_production -user root -p password -port 33060 -tables all
+```
+
+## Usage with Rails
+
+`config/database.yml`
+
+```ruby
+default: &default
+  adapter: mysql2
+  username: root
+  password: password
+  host: 127.0.0.1
+  port: 33060
+  pool: 5
+  timeout: 5000
+
+test:
+  <<: *default
+  database: indinero_test
+
+development:
+  <<: *default
+  database: indinero_production
+```
